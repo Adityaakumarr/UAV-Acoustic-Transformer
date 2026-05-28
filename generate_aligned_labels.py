@@ -126,7 +126,7 @@ def main() -> None:
         
         # Corresponding feature file path
         feat_filename = f"window_{idx:05d}.npy"
-        feat_rel_path = f"features/Pham4/{feat_filename}"
+        feat_rel_path = f"features/{args.sequence}/{feat_filename}"
         
         rows.append({
             "window_index": idx,
