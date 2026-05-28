@@ -1,0 +1,71 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# UAV 3D Trajectory Estimation — Central Configuration
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Audio ─────────────────────────────────────────────────────────────────────
+audio:
+  sample_rate: 41800
+  num_channels: 4
+  window_ms: 400
+  overlap: 0.75
+  n_fft: 1024
+  hop_length: 256
+  n_mels: 64
+
+# ── Features ──────────────────────────────────────────────────────────────────
+features:
+  num_channels_out: 10
+  freq_bins: 513
+  time_frames: 64
+  gcc_max_delay: 50
+
+# ── Model ─────────────────────────────────────────────────────────────────────
+model:
+  cnn_channels: [32, 64, 128]
+  cnn_kernel_size: 3
+  cnn_dropout: 0.1
+
+  d_model: 256
+  nhead: 8
+  num_encoder_layers: 4
+  num_decoder_layers: 4
+  dim_feedforward: 512
+  transformer_dropout: 0.1
+
+  traj_seq_len: 10
+  output_dim: 3
+
+# ── Training ──────────────────────────────────────────────────────────────────
+training:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler_step_size: 20
+  scheduler_gamma: 0.5
+  grad_clip: 1.0
+  early_stopping_patience: 100
+  val_split: 0.15
+  num_workers: 0
+  seed: 42
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+paths:
+  dataset_root: "dataset"
+  bag_dir: "dataset/bags"
+
+  audio_dir: "audio"
+  gt_dir: "dataset/Pham4/ground_truth"
+
+  features_dir: "features"
+
+  checkpoints_dir: "checkpoints"
+  logs_dir: "logs"
+  outputs_dir: "outputs"
+
+  best_model: "checkpoints/best_model.pth"
+  last_model: "checkpoints/last_model.pth"
+
+# ── Evaluation ────────────────────────────────────────────────────────────────
+evaluation:
+  metrics: ["APE", "Dx", "Dy", "Dz"]

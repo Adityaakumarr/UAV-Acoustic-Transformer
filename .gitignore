@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Dataset + generated data
+dataset/
+audio/
+features/
+
+# Training outputs
+checkpoints/
+logs/
+outputs/
+
+# OS files
+.DS_Store
+Thumbs.db
